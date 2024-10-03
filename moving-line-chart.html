@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      window.onload = function() {
+        // Record the start time
+        const startTime = performance.now();
+
+        // Function to get elapsed time in seconds since page load
+        function getElapsedTime() {
+          return (performance.now() - startTime) / 1000;
+        }
+
+        // Define the data structure for the line chart
+        const data = {
+          datasets: [{
+            label: 'Random Data over Time',
+            data: [],  // Start with empty data
+            borderColor: 'rgb(75, 192, 192)',
+            fill: false,
+            tension: 0.1
+          }],
+        };
+
+        // Configuration for the line chart
+        const config = {
+          type: 'line',
+          data: data,
+          options: {
+            animation: false,
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom',
+                title: {
+                  display: true,
+                  text: 'Time (seconds)'
+                }
+              },
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        };
+
+        // Create the chart instance
+        var chartInstance = new Chart(document.getElementById('myChart'), config);
+
+        // Function to generate a random Y value
+        function getRandomValue() {
+          return Math.random() * 20 - 10;
+        }
+
+        // Function to add new values to the chart
+        function addValues() {
+          const randomPoint = {
+            x: getElapsedTime(),  // X is time in seconds since the page loaded
+            y: getRandomValue()   // Y is a random value
+          };
+          data.datasets[0].data.push(randomPoint); // Add new point to the dataset
+          chartInstance.update();  // Update the chart with the new data
+          setTimeout(addValues, 50);  // Continue adding new data every 300ms
+        }
+
+        addValues();  // Start the loop to add random values
+      }
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+  </body>
+</html>
+

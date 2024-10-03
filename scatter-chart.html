@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      window.onload = function() {
+        // Define labels and data
+        //const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+		const data = {
+		  datasets: [{
+			label: 'Scatter Dataset',
+			data: [{
+			  x: -10,
+			  y: 0
+			}, {
+			  x: 0,
+			  y: 10
+			}, {
+			  x: 10,
+			  y: 5
+			}, {
+			  x: 0.5,
+			  y: 5.5
+			}, {
+			  x: -10,
+			  y: 0
+			}],
+			showLine: true
+		  }],
+		};
+
+		const config = {
+		  type: 'scatter',
+		  data: data,
+		  options: {
+		  	animation: false,
+			scales: {
+			  x: {
+				type: 'linear',
+				position: 'bottom'
+			  }
+			}
+		  }
+		};
+
+        // Create the chart
+        var chartInstance = new Chart(document.getElementById('myChart'), config);
+
+		function getRandomValue() {
+          return Math.random() * 20 - 10;
+        }
+
+
+		function addValues(){
+			const randomPoint = {
+			  x: getRandomValue(),
+			  y: getRandomValue()
+			};
+			data.datasets[0].data.push(randomPoint);			
+			chartInstance.update();	
+			setTimeout(addValues,300);
+		}
+
+		addValues();
+      }
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+  </body>
+</html>
+
