@@ -67,12 +67,12 @@
           data.datasets[0].data = data.datasets[0].data.filter(point => currentTime - point.x <= 15);
 
           // Update the x-axis range to show only the last 15 seconds
-          config.options.scales.x.min = currentTime - 15;
+          config.options.scales.x.min = currentTime - 5;
           config.options.scales.x.max = currentTime;
 
           chartInstance.update();  // Update the chart with the new data
 
-          setTimeout(addValues, 50);  // Continue adding new data every 300ms
+          setTimeout(addValues, 33);  // Continue adding new data every 300ms
         }
 
         addValues();  // Start the loop to add random values
